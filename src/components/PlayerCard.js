@@ -88,7 +88,8 @@ export const PlayerCard = ({ playerName, id }) => {
           <div className="flex flex-row justify-evenly">
             <form onSubmit={() => addPoints()}>
               <input
-                className="mr-3"
+                className="mr-3 border-gray-300 border-2"
+                max="4000"
                 type="number"
                 id="addpoints"
                 name="addpoints"
@@ -98,7 +99,7 @@ export const PlayerCard = ({ playerName, id }) => {
             </form>
 
             <div
-              className="cursor-pointer bg-blue-700 text-white rounded justify-center px-2"
+              className="cursor-pointer border-2 border-gray-400 rounded justify-center px-2"
               onClick={() => addPoints()}>
               Add
             </div>

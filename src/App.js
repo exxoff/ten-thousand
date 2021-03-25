@@ -158,6 +158,7 @@ function App() {
                 <form onSubmit={() => addPlayer()}>
                   <input
                     className="mr-3"
+                    maxLength="15"
                     type="text"
                     ref={playerInput}
                     onChange={(e) => handleChange(e)}
