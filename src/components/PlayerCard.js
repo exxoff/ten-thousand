@@ -89,7 +89,7 @@ export const PlayerCard = ({ playerName, id }) => {
             <form onSubmit={() => addPoints()}>
               <input
                 className="mr-3 border-gray-300 border-2"
-                max="4000"
+                max="8000"
                 type="number"
                 id="addpoints"
                 name="addpoints"

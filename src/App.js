@@ -174,7 +174,7 @@ function App() {
             </div>
           </ReactModal>
           <div className="text-center italic text-xs md:text-sm">
-            v. 2.0 Source:{" "}
+            v. 2.0.1 Source:{" "}
             <a href="https://github.com/exxoff/ten-thousand">Github</a>
           </div>
         </div>
