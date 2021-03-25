@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "10.000 score app",
+  "name": "10.000 score app",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "dice-3-152-213457.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "152x152"
     },
     {
-      "src": "logo512.png",
+      "src": "dice-3-152-213457.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "152x152"
     }
   ],
   "start_url": ".",
