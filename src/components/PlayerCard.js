@@ -1,19 +1,15 @@
 import { useState, useContext, useRef } from "react";
 import ReactModal from "react-modal";
 import { AppContext } from "../context/AppContext";
-import dice from "../static/dice.png";
 
 export const PlayerCard = ({ playerName, id }) => {
   const [isOpen, setOpen] = useState(false);
-  // const [points, setPoints] = useState(0);
-  // const [newPoints, setNewPoints] = useState(0);
   const { state, dispatch } = useContext(AppContext);
 
   const player = state.find((e) => e.id === id);
   const handleClick = (event) => {
     event.preventDefault();
     setOpen(true);
-    // alert(`You clicked on ${playerName}`);
   };
 
   const pointInput = useRef(null);
@@ -29,9 +25,6 @@ export const PlayerCard = ({ playerName, id }) => {
     },
   };
 
-  // const handleChange = (event) => {
-  //   setNewPoints(event.target.value);
-  // };
   const modalAfterOpen = () => {
     pointInput.current.focus();
   };
@@ -41,11 +34,6 @@ export const PlayerCard = ({ playerName, id }) => {
   };
 
   const addPoints = () => {
-    // if (Number(newPoints) === 0) {
-    //   setPoints(0);
-    // } else {
-    //   setPoints(Number(points) + Number(newPoints));
-    // }
     dispatch({
       type: "ADD-SCORE",
       payload: {
@@ -57,10 +45,6 @@ export const PlayerCard = ({ playerName, id }) => {
     closeModal();
   };
 
-  // const addPoints = () => {
-  //   onAddPoints(newPoints);
-  //   closeModal();
-  // };
   return (
     <>
       <div
@@ -72,7 +56,7 @@ export const PlayerCard = ({ playerName, id }) => {
               {playerName}
             </div>
           </div>
-          <div className="text-xl text-green-900 font-custom">
+          <div className="text-xl text-green-800 font-custom">
             <h4>{player.score}</h4>
           </div>
         </div>
@@ -94,7 +78,6 @@ export const PlayerCard = ({ playerName, id }) => {
                 id="addpoints"
                 name="addpoints"
                 ref={pointInput}
-                // onChange={(e) => handleChange(e)}
               />
             </form>
 

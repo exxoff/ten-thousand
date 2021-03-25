@@ -27,11 +27,6 @@ function App() {
     button.classList.remove("text-gray-200");
   };
   useEffect(() => {
-    // if (state.length === 0) {
-
-    //   setDisabled(document.getElementById("btnResetScore"));
-    // }
-
     if (state.some((p) => p.score !== 0)) {
       setEnabled(document.getElementById("btnResetScore"));
       setDisabled(document.getElementById("btnNewPlayer"));
@@ -103,19 +98,19 @@ function App() {
             <div className="flex space-x-3 justify-center mt-5">
               <button
                 id="btnNewPlayer"
-                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3"
+                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3 cursor-pointer"
                 onClick={() => openModal()}>
                 Add Player
               </button>
               <button
                 id="btnResetScore"
-                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3"
+                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3 cursor-pointer"
                 onClick={() => onResetScore()}>
                 Reset score
               </button>
               <button
                 id="btnReset"
-                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3"
+                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3 cursor-pointer"
                 onClick={() => onReset()}>
                 Reset
               </button>
@@ -166,7 +161,7 @@ function App() {
                 </form>
 
                 <div
-                  className="cursor-pointer bg-blue-700 text-white rounded justify-center px-2"
+                  className="cursor-pointer border-2 border-gray-400 rounded justify-center px-2"
                   onClick={() => addPlayer()}>
                   Add
                 </div>
@@ -174,7 +169,7 @@ function App() {
             </div>
           </ReactModal>
           <div className="text-center italic text-xs md:text-sm">
-            v. 2.0.1 Source:{" "}
+            v. 2.0.2 Source:{" "}
             <a href="https://github.com/exxoff/ten-thousand">Github</a>
           </div>
         </div>
