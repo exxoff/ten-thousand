@@ -1,11 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import ReactModal from "react-modal";
+import { AppContext } from "../context/AppContext";
+import dice from "../static/dice.png";
 
-export const PlayerCard = ({ playerName }) => {
+export const PlayerCard = ({ playerName, id }) => {
   const [isOpen, setOpen] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [newPoints, setNewPoints] = useState(0);
+  // const [points, setPoints] = useState(0);
+  // const [newPoints, setNewPoints] = useState(0);
+  const { state, dispatch } = useContext(AppContext);
 
+  const player = state.find((e) => e.id === id);
   const handleClick = (event) => {
     event.preventDefault();
     setOpen(true);
@@ -24,13 +28,10 @@ export const PlayerCard = ({ playerName }) => {
       transform: "translate(-50%, -50%)",
     },
   };
-  const modalIsOpen = () => {
-    setOpen(true);
-  };
 
-  const handleChange = (event) => {
-    setNewPoints(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setNewPoints(event.target.value);
+  // };
   const modalAfterOpen = () => {
     pointInput.current.focus();
   };
@@ -40,13 +41,19 @@ export const PlayerCard = ({ playerName }) => {
   };
 
   const addPoints = () => {
-    console.log(`Current points: ${points}`);
-    console.log(`New points: ${newPoints}`);
-    if (Number(newPoints) === 0) {
-      setPoints(0);
-    } else {
-      setPoints(Number(points) + Number(newPoints));
-    }
+    // if (Number(newPoints) === 0) {
+    //   setPoints(0);
+    // } else {
+    //   setPoints(Number(points) + Number(newPoints));
+    // }
+    dispatch({
+      type: "ADD-SCORE",
+      payload: {
+        id: id,
+        name: playerName,
+        points: Number(pointInput.current.value),
+      },
+    });
     closeModal();
   };
 
@@ -57,14 +64,16 @@ export const PlayerCard = ({ playerName }) => {
   return (
     <>
       <div
-        className="max-w-md md:w-8/12 w-full bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg mt-3"
+        className="max-w-md md:w-8/12 w-full bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg mt-1 md:mt-3"
         onClick={(e) => handleClick(e, 0, playerName)}>
         <div className="flex justify-between">
-          <div className="text-xl text-red-700 font-bold font-custom">
-            <h3>{playerName}</h3>
+          <div className=" flex">
+            <div className="text-xl text-red-700 font-bold font-custom ml-3">
+              {playerName}
+            </div>
           </div>
           <div className="text-xl text-green-900 font-custom">
-            <h4>{points}</h4>
+            <h4>{player.score}</h4>
           </div>
         </div>
       </div>
@@ -84,7 +93,7 @@ export const PlayerCard = ({ playerName }) => {
                 id="addpoints"
                 name="addpoints"
                 ref={pointInput}
-                onChange={(e) => handleChange(e)}
+                // onChange={(e) => handleChange(e)}
               />
             </form>
 
