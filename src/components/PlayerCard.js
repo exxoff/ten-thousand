@@ -56,8 +56,15 @@ export const PlayerCard = ({ playerName, id }) => {
               {playerName}
             </div>
           </div>
-          <div className="text-xl text-green-800 font-custom">
-            <h4>{player.score}</h4>
+          <div>
+            <div className="text-xl text-green-800 font-custom">
+              <h4>{player.score}</h4>
+            </div>
+            {player.diff !== 0 && (
+              <div className="text-sm text-red-800 font-custom">
+                <h6>{player.diff}</h6>
+              </div>
+            )}
           </div>
         </div>
       </div>

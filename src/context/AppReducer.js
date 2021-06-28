@@ -9,6 +9,11 @@ export const AppReducer = (state, action) => {
       // console.log("Adding...", action.payload);
       const player = state.find((e) => e.id === action.payload.id);
       player.score = player.score + action.payload.points;
+      state.sort((a, b) => b.score - a.score);
+      state.map((a) => {
+        a.diff = a.score - state[0].score;
+        return a;
+      });
 
       return [...state];
     }
@@ -20,6 +25,7 @@ export const AppReducer = (state, action) => {
       // console.log("Resetting score...", state);
       state.forEach((e) => {
         e.score = 0;
+        e.diff = 0;
       });
       // console.log("New state:", state);
       return [...state];
@@ -32,6 +38,7 @@ export const AppReducer = (state, action) => {
           id: action.payload.id,
           name: action.payload.name,
           score: 0,
+          diff: 0,
         },
       ];
     }
