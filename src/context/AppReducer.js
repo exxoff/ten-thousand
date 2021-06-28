@@ -1,7 +1,7 @@
 const initialState = { score: [], history: [] };
 
 export const initializer = (initialValue = initialState) =>
-  JSON.parse(localStorage.getItem("localtt")) || initialValue;
+  JSON.parse(localStorage.getItem("localtt2.1.0")) || initialValue;
 
 export const AppReducer = (state, action) => {
   switch (action.type) {

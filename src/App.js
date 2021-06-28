@@ -40,7 +40,7 @@ function App() {
     }
 
     console.log("Inside UseEffect, state:", state);
-    localStorage.setItem("localtt", JSON.stringify(state));
+    localStorage.setItem("localtt2.1.0", JSON.stringify(state));
   }, [state]);
 
   const addPlayer = () => {
