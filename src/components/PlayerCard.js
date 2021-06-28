@@ -6,7 +6,8 @@ export const PlayerCard = ({ playerName, id }) => {
   const [isOpen, setOpen] = useState(false);
   const { state, dispatch } = useContext(AppContext);
 
-  const player = state.find((e) => e.id === id);
+  console.log("Playercard:", state);
+  const player = state.score.find((e) => e.id === id);
   const handleClick = (event) => {
     event.preventDefault();
     setOpen(true);
@@ -58,7 +59,7 @@ export const PlayerCard = ({ playerName, id }) => {
           </div>
           <div>
             <div className="text-xl text-green-800 font-custom">
-              <h4>{player.score}</h4>
+              <h4>{player.points}</h4>
             </div>
             {player.diff !== 0 && (
               <div className="text-sm text-red-800 font-custom">

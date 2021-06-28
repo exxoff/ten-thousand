@@ -6,8 +6,14 @@ import { PlayerCard } from "./components/PlayerCard";
 import ReactModal from "react-modal";
 
 function App() {
-  const [state, dispatch] = useReducer(AppReducer, [], initializer);
+  const [state, dispatch] = useReducer(
+    AppReducer,
+    { score: [], history: [] },
+    initializer
+  );
   const [isOpen, setOpen] = useState(false);
+  const [isHistoryOpen, setHistoryOpen] = useState(false);
+
   const [newPlayer, setNewPlayer] = useState("");
 
   const playerInput = useRef(null);
@@ -27,11 +33,13 @@ function App() {
     button.classList.remove("text-gray-200");
   };
   useEffect(() => {
-    if (state.some((p) => p.score !== 0)) {
+    if (state.score.some((p) => p.points !== 0)) {
       setEnabled(document.getElementById("btnResetScore"));
+      setEnabled(document.getElementById("btnHistory"));
       setDisabled(document.getElementById("btnNewPlayer"));
     }
 
+    console.log("Inside UseEffect, state:", state);
     localStorage.setItem("localtt", JSON.stringify(state));
   }, [state]);
 
@@ -39,16 +47,18 @@ function App() {
     dispatch({
       type: "ADD-PLAYER",
       payload: {
-        id: state.length,
+        id: state.score.length,
         name: newPlayer,
-        score: 0,
+        points: 0,
       },
     });
     setEnabled(document.getElementById("btnReset"));
+    setEnabled(document.getElementById("btnHistory"));
     closeModal();
   };
 
   const onReset = () => {
+    setDisabled(document.getElementById("btnHistory"));
     setDisabled(document.getElementById("btnReset"));
     setDisabled(document.getElementById("btnResetScore"));
     setEnabled(document.getElementById("btnNewPlayer"));
@@ -62,6 +72,7 @@ function App() {
       type: "RESET-SCORE",
     });
     setDisabled(document.getElementById("btnResetScore"));
+    setDisabled(document.getElementById("btnHistory"));
     setEnabled(document.getElementById("btnNewPlayer"));
   };
   const customStyles = {
@@ -77,6 +88,9 @@ function App() {
   const openModal = () => {
     setOpen(true);
   };
+  const openHistory = () => {
+    setHistoryOpen(true);
+  };
 
   const handleChange = (event) => {
     setNewPlayer(event.target.value);
@@ -87,6 +101,11 @@ function App() {
   const closeModal = () => {
     setOpen(false);
   };
+  const closeHistory = () => {
+    setHistoryOpen(false);
+  };
+
+  console.log("Render", state);
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <div className="App">
@@ -114,14 +133,20 @@ function App() {
                 onClick={() => onReset()}>
                 Reset
               </button>
+              <button
+                id="btnHistory"
+                className="rounded-md border-solid border-2 border-gray-400 px-1 py-1 font-bold font-custom text-sm md:text-lg md:px-3 cursor-pointer"
+                onClick={() => openHistory()}>
+                History
+              </button>
             </div>
             <div className="flex flex-col items-center mx-2">
-              {state.map((player) => (
+              {state.score.map((player) => (
                 <PlayerCard
                   playerName={player.name}
                   id={player.id}
                   key={player.id}
-                  score={player.score}
+                  score={player.points}
                 />
               ))}
               <div className="italic text-xs font-custom mt-6">
@@ -164,6 +189,38 @@ function App() {
                   className="cursor-pointer border-2 border-gray-400 rounded justify-center px-2"
                   onClick={() => addPlayer()}>
                   Add
+                </div>
+              </div>
+            </div>
+          </ReactModal>
+          <ReactModal
+            isOpen={isHistoryOpen}
+            // onAfterOpen={modalAfterOpen}
+            onRequestClose={closeHistory}
+            style={customStyles}
+            contentLabel="History">
+            <div className="flex flex-col">
+              <h2 className="font-bold">History</h2>
+              <div className="flex flex-col justify-evenly">
+                {state.history
+                  .slice(0)
+                  .reverse()
+                  .map((hist) => (
+                    <div className="flex flex-row justify-between">
+                      <div className="text-lg font-custom text-red-700 px-4">
+                        {hist.player}:{" "}
+                      </div>
+                      <div className="text-lg font-custom text-green-700">
+                        {hist.points}
+                      </div>
+                      <br></br>
+                    </div>
+                  ))}
+
+                <div
+                  className="cursor-pointer border-2 border-gray-400 rounded justify-center px-2 mt-4"
+                  onClick={() => closeHistory()}>
+                  Close
                 </div>
               </div>
             </div>
