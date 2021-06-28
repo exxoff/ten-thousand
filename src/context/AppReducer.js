@@ -7,7 +7,7 @@ export const AppReducer = (state, action) => {
   switch (action.type) {
     case "ADD-SCORE": {
       console.log("Adding...", action.payload);
-      const s = state;
+
       const player = state.score.find((e) => e.id === action.payload.id);
       player.points = player.points + action.payload.points;
       state.score.sort((a, b) => b.points - a.points);
